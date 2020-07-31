@@ -1,0 +1,52 @@
+﻿
+@model CadastroCliente.Models.ListarViewModel
+@using CadastroCliente.Controllers
+
+@{
+    ViewBag.Title = "Cadastro de Clientes";
+}
+
+
+<div class="row" style="margin-bottom: 15px;">
+    @Html.ActionLink(nameof(HomeController.Adicionar), nameof(HomeController.Adicionar), null, new { @class = "btn btn-success mb-2" })
+</div>
+<div class="row">
+    @{ Html.RenderPartial("_Filtro", Model); }
+</div>
+
+<div class="row">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Listagem de Clientes</div>
+
+        <table class="table">
+
+            <tr>
+
+                <th> Nome </th>
+                <th> Documento </th>
+                <th> Data Cadastro </th>
+                <th> Telefone </th>
+                <th> Tipo Pessoa </th>
+                <th> Ações </th>
+
+            </tr>
+
+            @foreach (var cliente in Model.Clientes)
+            {
+                <tr>
+                    <td> @cliente.Nome </td>
+                    <td> @cliente.Documento </td>
+                    <td> @Html.DisplayFor(c => cliente.DataCadastro) </td>
+                    <td> @cliente.Telefone </td>
+                    <td> @Html.DisplayFor(c => cliente.TipoPessoa)</td>
+                    <td>
+                        @Html.ActionLink(nameof(HomeController.Editar), nameof(HomeController.Editar), new { id = cliente.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink(nameof(HomeController.Apagar), nameof(HomeController.Apagar), new { id = cliente.Id }, new { @class = "btn btn-danger" })
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+</div>
